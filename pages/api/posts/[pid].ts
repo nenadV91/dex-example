@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { postsBaseUrl } from "../../config/api";
+import { postsBaseUrl } from "../../config/json-server";
 import { Post } from "../../types/posts";
 
 export default function handler(

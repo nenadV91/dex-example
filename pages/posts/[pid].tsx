@@ -1,10 +1,28 @@
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
+import { GetServerSideProps } from "next";
+import { Post } from "../types/posts";
+import { postsBaseUrl } from "../config/api";
 
-const Post = () => {
-  const router = useRouter()
-  const { pid } = router.query
+type PostProps = {
+  data: Post;
+};
 
-  return <p>Post: {pid}</p>
-}
+const Post = ({ data }: PostProps) => {
+  const router = useRouter();
 
-export default Post
+  return (
+    <div className="container">
+      <h1>{data.title}</h1>
+    </div>
+  );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { pid } = context.query;
+  const res = await fetch(`${postsBaseUrl}/${pid}`);
+  const data = await res.json();
+
+  return { props: { data } };
+};
+
+export default Post;
