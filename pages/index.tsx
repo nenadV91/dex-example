@@ -1,14 +1,24 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import type { NextPage } from "next";
+import dynamic from "next/dynamic";
+
+const MetaMask = dynamic(() => import("components/connectors/MetaMask"), {
+  ssr: false,
+});
+
+const WalletConnect = dynamic(
+  () => import("components/connectors/WalletConnect"),
+  {
+    ssr: false,
+  }
+);
 
 const Home: NextPage = () => {
   return (
-    <div className={styles.container}>
-      My web3 app
+    <div className="container pt-5 mx-auto">
+      <MetaMask />
+      <WalletConnect />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
