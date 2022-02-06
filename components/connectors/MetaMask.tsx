@@ -21,6 +21,8 @@ export default function MetaMaskConnect() {
   const isActive = useIsActive();
   const isActivating = useIsActivating();
 
+  const provider = useProvider();
+
   const error = useError();
 
   return (
@@ -35,7 +37,7 @@ export default function MetaMaskConnect() {
 
       <ChainInfo chainId={chainId} />
 
-      <AccountInfo accounts={accounts} />
+      <AccountInfo provider={provider} accounts={accounts} />
 
       <ChainSelect
         isActive={isActive}
