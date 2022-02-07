@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import dynamic from "next/dynamic";
+import Grid from "@mui/material/Grid";
 
 const MetaMask = dynamic(() => import("components/connectors/MetaMask"), {
   ssr: false,
@@ -14,10 +15,11 @@ const WalletConnect = dynamic(
 
 const Home: NextPage = () => {
   return (
-    <div className="container pt-5 mx-auto">
-      <MetaMask />
-      <WalletConnect />
-    </div>
+    <Grid container spacing={2}>
+      <Grid item xs={8}>
+        Page
+      </Grid>
+    </Grid>
   );
 };
 

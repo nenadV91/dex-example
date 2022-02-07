@@ -1,8 +1,4 @@
 import { hooks, metaMask } from "connectors/metaMask";
-import ChainSelect from "components/ChainSelect";
-import ChainInfo from "components/ChainInfo";
-import StatusInfo from "components/StatusInfo";
-import AccountInfo from "components/AccountInfo";
 
 const {
   useChainId,
@@ -26,25 +22,8 @@ export default function MetaMaskConnect() {
   const error = useError();
 
   return (
-    <div className="block p-6 max-w-lg bg-white rounded-lg border border-gray-200 shadow-md ">
+    <div className="">
       <b>MetaMask</b>
-
-      <StatusInfo
-        error={error}
-        isActivating={isActivating}
-        isActive={isActive}
-      />
-
-      <ChainInfo chainId={chainId} />
-
-      <AccountInfo provider={provider} accounts={accounts} />
-
-      <ChainSelect
-        isActive={isActive}
-        chainId={chainId}
-        connector={metaMask}
-        error={error}
-      />
     </div>
   );
 }

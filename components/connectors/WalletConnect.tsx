@@ -1,8 +1,4 @@
 import { hooks, walletConnect } from "connectors/walletConnect";
-import ChainSelect from "components/ChainSelect";
-import ChainInfo from "components/ChainInfo";
-import StatusInfo from "components/StatusInfo";
-import AccountInfo from "components/AccountInfo";
 
 const {
   useChainId,
@@ -30,25 +26,8 @@ export default function WalletConnect() {
   };
 
   return (
-    <div className="block mt-4 p-6 max-w-lg bg-white rounded-lg border border-gray-200 shadow-md ">
+    <div className="">
       <b>WalletConnect</b>
-
-      <StatusInfo
-        error={error}
-        isActivating={isActivating}
-        isActive={isActive}
-      />
-
-      <ChainInfo chainId={chainId} />
-
-      <AccountInfo provider={provider} accounts={accounts} />
-
-      <button
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        onClick={handleClick}
-      >
-        {isActive ? "Disconnect" : "Connect"}
-      </button>
     </div>
   );
 }
