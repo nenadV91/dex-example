@@ -21,6 +21,11 @@ export enum SupportedChainId {
   RINKEBY = 4,
 }
 
+export const ALL_SUPPORTED_CHAIN_IDS: SupportedChainId[] = [
+  SupportedChainId.MAINNET,
+  SupportedChainId.RINKEBY,
+];
+
 export const CHAIN_ID_TO_NAMES = {
   [SupportedChainId.MAINNET]: "mainnet",
   [SupportedChainId.RINKEBY]: "rinkeby",

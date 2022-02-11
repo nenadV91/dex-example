@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/const/*": ["const/*"],
+      "@/components/*": ["src/components/*"],
+      "@/const/*": ["src/const/*"],
       "@/pages/*": ["pages/*"]
     },
     "target": "es5",
