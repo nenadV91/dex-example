@@ -6,12 +6,17 @@ export interface WalletInfo {
   name: string;
 }
 
+export enum SupportedWallets {
+  INJECTED = "INJECTED",
+  WALLET_CONNECT = "WALLET_CONNECT",
+}
+
 export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
-  INJECTED: {
+  [SupportedWallets.INJECTED]: {
     connector: injected,
     name: "Injected",
   },
-  WALLET_CONNECT: {
+  [SupportedWallets.WALLET_CONNECT]: {
     connector: walletconnect,
     name: "WalletConnect",
   },
