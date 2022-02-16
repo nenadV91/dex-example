@@ -4,4 +4,6 @@ export enum ApplicationModal {
 
 export interface ApplicationState {
   openModal: ApplicationModal | null;
+  chainId: number | null;
+  blockNumber: { readonly [chainId: number]: number };
 }

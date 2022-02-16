@@ -3,7 +3,7 @@ import { useWeb3React } from "@web3-react/core";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
 import { LAST_CONNECTOR_NAME } from "constants/index";
 
-export default function useDisconnect() {
+export default function WalletUpdater(): null {
   const { connector } = useWeb3React();
 
   useEffect(() => {
@@ -18,4 +18,6 @@ export default function useDisconnect() {
       });
     }
   }, [connector]);
+
+  return null;
 }

@@ -7,7 +7,9 @@ import Layout from "components/Layout";
 import WalletModal from "components/Modals/WalletModal";
 import getLibrary from "utils/getLibrary";
 import dynamic from "next/dynamic";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AppUpdater from "state/app/updater";
+import WalletUpdater from "state/wallet/updater";
 
 const Web3ReactProviderDefault = dynamic(
   () => import("components/Providers/DefaultProvider"),
@@ -16,11 +18,17 @@ const Web3ReactProviderDefault = dynamic(
 
 declare module "@mui/material/styles" {
   interface Theme {}
-  // allow configuration using `createTheme`
   interface ThemeOptions {}
 }
 
 const theme = createTheme({});
+
+const Updaters = () => (
+  <>
+    <AppUpdater />
+    <WalletUpdater />
+  </>
+);
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -28,6 +36,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Web3ReactProvider getLibrary={getLibrary}>
         <Web3ReactProviderDefault getLibrary={getLibrary}>
           <ThemeProvider theme={theme}>
+            <Updaters />
+
             <Layout>
               <Component {...pageProps} />
             </Layout>
