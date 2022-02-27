@@ -1,14 +1,6 @@
 import { styled } from "@mui/material";
 import { escapeRegExp } from "utils";
 
-const StyledInputWrapper = styled("div")`
-  padding: 1rem;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
-`;
-
 type StyledInputProps = {
   fontSize?: string;
 };
@@ -65,19 +57,17 @@ export default function NumericalInput({
   };
 
   return (
-    <StyledInputWrapper>
-      <StyledInput
-        inputMode="decimal"
-        autoComplete="off"
-        autoCorrect="off"
-        value={value}
-        placeholder={placeholder || "0.0"}
-        pattern="^[0-9]*[.,]?[0-9]*$"
-        minLength={1}
-        maxLength={79}
-        spellCheck={false}
-        onChange={handleChange}
-      />
-    </StyledInputWrapper>
+    <StyledInput
+      inputMode="decimal"
+      autoComplete="off"
+      autoCorrect="off"
+      value={value}
+      placeholder={placeholder || "0.0"}
+      pattern="^[0-9]*[.,]?[0-9]*$"
+      minLength={1}
+      maxLength={79}
+      spellCheck={false}
+      onChange={handleChange}
+    />
   );
 }

@@ -1,10 +1,19 @@
 import { styled } from "@mui/system";
+import { Currency } from "@uniswap/sdk-core";
+import { Button } from "@mui/material";
 
-const StyledCurrencySelect = styled("div")`
-  width: 100%;
-  padding: 0 1rem 1rem;
-`;
+const CurrencySelectButton = styled(Button)``;
 
-export default function CurrencySelect() {
-  return <StyledCurrencySelect>CurrencySelect</StyledCurrencySelect>;
+type CurrencySelectProps = {
+  onCurrencySelect: (currency: Currency) => void;
+};
+
+export default function CurrencySelect({
+  onCurrencySelect,
+}: CurrencySelectProps) {
+  return (
+    <CurrencySelectButton variant="contained" size="small">
+      Select a token
+    </CurrencySelectButton>
+  );
 }

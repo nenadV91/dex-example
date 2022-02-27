@@ -1,22 +1,21 @@
 import { useCallback, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Field } from "state/swap/types";
+import { Typography } from "@mui/material";
 import { useSwapActionHandlers, useSwapState } from "state/swap/hooks";
 import CurrencyInputPanel from "components/CurrencyInput/CurrencyInput";
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
   max-width: 480px;
-  min-height: 100vh;
   width: 100%;
   margin: 0 auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
 `;
 
 const Swap = () => {
-  const { onUserInput } = useSwapActionHandlers();
+  const { onUserInput, onCurrencySelection } = useSwapActionHandlers();
   const { typedValue, independendField } = useSwapState();
 
   const dependentField: Field =
@@ -36,19 +35,19 @@ const Swap = () => {
     [onUserInput]
   );
 
-  // const handleInputSelect = useCallback(
-  //   (inputCurrency) => {
-  //     onCurrencySelection(Field.INPUT, inputCurrency);
-  //   },
-  //   [onCurrencySelection]
-  // );
+  const handleInputSelect = useCallback(
+    (inputCurrency) => {
+      onCurrencySelection(Field.INPUT, inputCurrency);
+    },
+    [onCurrencySelection]
+  );
 
-  // const handleOutputSelect = useCallback(
-  //   (outputCurrency) => {
-  //     onCurrencySelection(Field.OUTPUT, outputCurrency);
-  //   },
-  //   [onCurrencySelection]
-  // );
+  const handleOutputSelect = useCallback(
+    (outputCurrency) => {
+      onCurrencySelection(Field.OUTPUT, outputCurrency);
+    },
+    [onCurrencySelection]
+  );
 
   const formattedAmounts = useMemo(
     () => ({
@@ -60,12 +59,17 @@ const Swap = () => {
 
   return (
     <Wrapper>
+      <Typography mb={1} ml={1} variant="body1">
+        Swap
+      </Typography>
       <CurrencyInputPanel
         value={formattedAmounts[Field.INPUT]}
+        onCurrencySelect={handleInputSelect}
         onUserInput={handleTypeInput}
       />
       <CurrencyInputPanel
         value={formattedAmounts[Field.OUTPUT]}
+        onCurrencySelect={handleOutputSelect}
         onUserInput={handleTypeOutput}
       />
     </Wrapper>
