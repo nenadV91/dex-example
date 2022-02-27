@@ -1,4 +1,5 @@
 import { styled } from "@mui/material";
+import { escapeRegExp } from "utils";
 
 const StyledInputWrapper = styled("div")`
   padding: 1rem;
@@ -24,6 +25,19 @@ const StyledInput = styled("input")<StyledInputProps>`
   text-overflow: ellipsis;
   padding: 0;
 
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+
+  [type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
   ::placeholder {
     color: ${({ theme }) => theme.palette.text.secondary};
   }
@@ -35,18 +49,27 @@ export type NumericalInputProps = {
   onUserInput: (input: string) => void;
 };
 
+const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`);
+
 export default function NumericalInput({
   onUserInput,
   placeholder,
   value,
 }: NumericalInputProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    onUserInput(event.target.value);
+    const value = event.target.value;
+
+    if (value === "" || inputRegex.test(escapeRegExp(value))) {
+      onUserInput(value.replace(/,/g, "."));
+    }
   };
 
   return (
     <StyledInputWrapper>
       <StyledInput
+        inputMode="decimal"
+        autoComplete="off"
+        autoCorrect="off"
         value={value}
         placeholder={placeholder || "0.0"}
         pattern="^[0-9]*[.,]?[0-9]*$"
