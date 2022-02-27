@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { WalletViews } from "./types";
 import { AbstractConnector } from "@web3-react/abstract-connector";
 import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
-import { RootState } from "state/store";
+import { AppState } from "state/store";
 import usePrevious from "hooks/usePrevious";
 import { useWeb3React } from "@web3-react/core";
 
@@ -17,7 +17,7 @@ export function useSetWalletView() {
 }
 
 export function useWalletView(): WalletViews {
-  return useSelector((state: RootState) => state.wallet.view);
+  return useSelector((state: AppState) => state.wallet.view);
 }
 
 export function useSetWalletError() {
@@ -29,7 +29,7 @@ export function useSetWalletError() {
 }
 
 export function useWalletError(): boolean {
-  return useSelector((state: RootState) => state.wallet.pendingError);
+  return useSelector((state: AppState) => state.wallet.pendingError);
 }
 
 export function useTryActivation() {

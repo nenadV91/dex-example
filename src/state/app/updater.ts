@@ -13,7 +13,6 @@ export default function AppUpdater(): null {
         return;
       }
 
-      console.log("updated from here", blockNumber);
       dispatch(updateBlockNumber({ chainId, blockNumber }));
     },
     [chainId, dispatch]
