@@ -1,28 +1,26 @@
-import { useCallback } from "react";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+import { useCallback, useMemo } from "react";
 import styled from "@emotion/styled";
 import { Field } from "state/swap/types";
 import { useSwapActionHandlers, useSwapState } from "state/swap/hooks";
-
-const InputWrapper = styled(Box)`
-  min-width: 300px;
-  margin-bottom: 10px;
-`;
+import CurrencyInputPanel from "components/CurrencyInput/CurrencyInput";
 
 const Wrapper = styled.div`
-  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 75px;
   flex-direction: column;
+  max-width: 480px;
+  min-height: 100vh;
   width: 100%;
+  margin: 0 auto;
 `;
 
 const Swap = () => {
   const { onUserInput } = useSwapActionHandlers();
   const { typedValue, independendField } = useSwapState();
+
+  const dependentField: Field =
+    independendField === Field.INPUT ? Field.OUTPUT : Field.INPUT;
 
   const handleTypeInput = useCallback(
     (value: string) => {
@@ -38,25 +36,38 @@ const Swap = () => {
     [onUserInput]
   );
 
+  // const handleInputSelect = useCallback(
+  //   (inputCurrency) => {
+  //     onCurrencySelection(Field.INPUT, inputCurrency);
+  //   },
+  //   [onCurrencySelection]
+  // );
+
+  // const handleOutputSelect = useCallback(
+  //   (outputCurrency) => {
+  //     onCurrencySelection(Field.OUTPUT, outputCurrency);
+  //   },
+  //   [onCurrencySelection]
+  // );
+
+  const formattedAmounts = useMemo(
+    () => ({
+      [independendField]: typedValue,
+      [dependentField]: "69",
+    }),
+    [dependentField, independendField, typedValue]
+  );
+
   return (
     <Wrapper>
-      <InputWrapper>
-        <TextField
-          onChange={(event) => handleTypeInput(event.target.value)}
-          fullWidth
-          id="outlined-basic"
-          variant="outlined"
-        />
-      </InputWrapper>
-
-      <InputWrapper>
-        <TextField
-          onChange={(event) => handleTypeOutput(event.target.value)}
-          fullWidth
-          id="outlined-basic"
-          variant="outlined"
-        />
-      </InputWrapper>
+      <CurrencyInputPanel
+        value={formattedAmounts[Field.INPUT]}
+        onUserInput={handleTypeInput}
+      />
+      <CurrencyInputPanel
+        value={formattedAmounts[Field.OUTPUT]}
+        onUserInput={handleTypeOutput}
+      />
     </Wrapper>
   );
 };
