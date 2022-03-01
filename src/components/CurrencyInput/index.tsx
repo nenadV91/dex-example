@@ -1,10 +1,12 @@
-import Box from "@mui/material/Box";
+import { useState } from "react";
 import { styled } from "@mui/system";
-import CurrencySelect from "components/CurrencySelect/CurrencySelect";
-import NumericalInput from "components/NumericalInput/NumericalInput";
 import { Currency } from "@uniswap/sdk-core";
+import Box from "@mui/material/Box";
+import CurrencySelect from "components/CurrencySelect";
+import NumericalInput from "components/NumericalInput";
+import CurrencyModal from "components/CurrencyModal";
 
-const InputWrapper = styled(Box)`
+const InputPanel = styled(Box)`
   margin-bottom: 10px;
   background-color: ${({ theme }) => theme.palette.grey[100]};
   border-radius: 20px;
@@ -31,12 +33,23 @@ export default function CurrencyInput({
   onUserInput,
   value,
 }: CurrencyInputProps) {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const handleSelectClick = () => {
+    setModalOpen(true);
+  };
+
   return (
-    <InputWrapper>
+    <InputPanel>
       <InputRow>
         <NumericalInput onUserInput={onUserInput} value={value} />
-        <CurrencySelect onCurrencySelect={onCurrencySelect} />
+        <CurrencySelect onClick={handleSelectClick} />
+        <CurrencyModal onClose={handleModalClose} isOpen={modalOpen} />
       </InputRow>
-    </InputWrapper>
+    </InputPanel>
   );
 }

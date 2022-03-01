@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Field } from "state/swap/types";
 import { Typography } from "@mui/material";
 import { useSwapActionHandlers, useSwapState } from "state/swap/hooks";
-import CurrencyInputPanel from "components/CurrencyInput/CurrencyInput";
+import CurrencyInputPanel from "components/CurrencyInput";
 
 const Wrapper = styled.div`
   max-width: 480px;
