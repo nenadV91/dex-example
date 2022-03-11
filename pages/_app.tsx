@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { ThemeProvider } from "@mui/material/styles";
 import AppUpdater from "state/app/updater";
 import WalletUpdater from "state/wallet/updater";
+import ListsUpdater from "state/lists/updater";
 import theme from "theme";
 
 const Web3ReactProviderDefault = dynamic(
@@ -26,6 +27,7 @@ const Updaters = () => (
   <>
     <AppUpdater />
     <WalletUpdater />
+    <ListsUpdater />
   </>
 );
 
