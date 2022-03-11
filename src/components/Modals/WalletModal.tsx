@@ -27,7 +27,6 @@ const ModalContent = styled(Box)`
   transform: translate(-50%, -50%);
   min-width: 400px;
   background-color: ${({ theme }) => theme.palette.background.paper};
-  box-shadow: ${({ theme }) => theme?.shadows[4]};
   padding: ${({ theme }) => theme.spacing(2)};
 `;
 

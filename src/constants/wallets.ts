@@ -1,5 +1,5 @@
 import { AbstractConnector } from "@web3-react/abstract-connector";
-import { injected, walletconnect } from "connectors";
+import { injected, walletconnect, portis } from "connectors";
 
 export interface WalletInfo {
   connector?: AbstractConnector;
@@ -9,6 +9,7 @@ export interface WalletInfo {
 export enum SupportedWallets {
   INJECTED = "INJECTED",
   WALLET_CONNECT = "WALLET_CONNECT",
+  PORTIS = "PORTIS"
 }
 
 export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
@@ -20,4 +21,8 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     connector: walletconnect,
     name: "WalletConnect",
   },
+  [SupportedWallets.PORTIS]: {
+    connector: portis,
+    name: 'Portis'
+  }
 };
