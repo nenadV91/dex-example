@@ -1,18 +1,25 @@
-import { SupportedChainId } from "chains";
+import { SupportedChainId, CHAIN_ID_TO_NAMES } from "chains";
 
 export function isSupportedChain(
-  chainId?: number
+	chainId?: number
 ): chainId is SupportedChainId {
-  if (!chainId) return false;
-  return Boolean(SupportedChainId[chainId]);
+	if (!chainId) return false;
+	return Boolean(SupportedChainId[chainId]);
 }
 
 export function supportedChainId(
-  chainId?: number
+	chainId?: number
 ): SupportedChainId | undefined {
-  if (isSupportedChain(chainId)) {
-    return chainId;
-  }
+	if (isSupportedChain(chainId)) {
+		return chainId;
+	}
 
-  return undefined;
+	return undefined;
+}
+
+export function chainIdToNames(chainId?: number) {
+	if (!chainId) return undefined;
+	if (!supportedChainId(chainId)) return undefined;
+
+	return CHAIN_ID_TO_NAMES[chainId as SupportedChainId];
 }
