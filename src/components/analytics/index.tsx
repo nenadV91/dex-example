@@ -6,6 +6,7 @@ import { isMobile } from "utils/userAgent";
 import { getCLS, getFCP, getFID, getLCP, Metric } from "web-vitals";
 
 import GoogleAnalyticsProvider from "./GoogleAnalyticsProvider";
+import { useWalletInfo } from "hooks/useWalletInfo";
 
 export const GOOGLE_ANALYTICS_CLIENT_ID_STORAGE_KEY = "ga_client_id";
 
@@ -55,7 +56,11 @@ if (typeof window !== "undefined") {
 				storage: "none",
 				storeGac: false,
 				clientId: storedClientId ?? undefined,
-				custom_map: { cd1: "chainId" },
+				legacyDimensionMetric: true,
+				custom_map: {
+					dimension1: "chainId",
+					dimension2: "walletName",
+				},
 			},
 		});
 		googleAnalytics.set({
@@ -88,6 +93,9 @@ function reportWebVitals({ name, delta, id }: Metric) {
 // tracks web vitals and pageviews
 export function useAnalyticsReporter() {
 	const { asPath } = useRouter();
+	const { chainId } = useWeb3React();
+	const walletName = useWalletInfo();
+
 	useEffect(() => {
 		getFCP(reportWebVitals);
 		getFID(reportWebVitals);
@@ -95,13 +103,17 @@ export function useAnalyticsReporter() {
 		getCLS(reportWebVitals);
 	}, []);
 
-	const { chainId } = useWeb3React();
 	useEffect(() => {
-		// cd1 - custom dimension 1 - chainId
+		// custom dimension 1 - chainId
 		googleAnalytics.set({ cd1: chainId ?? 0 });
 		googleAnalytics.set({ dimension1: chainId ?? 0 });
 		googleAnalytics.set({ chainId: chainId ?? 0 });
 	}, [chainId]);
+
+	useEffect(() => {
+		// custom dimension 2 - walletName
+		googleAnalytics.set({ walletName });
+	}, [walletName]);
 
 	useEffect(() => {
 		googleAnalytics.pageview(asPath);
