@@ -5,14 +5,14 @@ import { useAllTokens } from "state/tokens/hooks";
 const CurrencySelectButton = styled(Button)``;
 
 type CurrencySelectProps = {
-  onClick: () => void;
+	onClick: () => void;
 };
 
 export default function CurrencySelect({ onClick }: CurrencySelectProps) {
-  const allTokens = useAllTokens();
-  return (
-    <CurrencySelectButton onClick={onClick} variant="contained" size="small">
-      Select a token
-    </CurrencySelectButton>
-  );
+	const allTokens = useAllTokens();
+	return (
+		<CurrencySelectButton onClick={onClick} variant="contained" size="small">
+			Select a token
+		</CurrencySelectButton>
+	);
 }
