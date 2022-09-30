@@ -6,13 +6,12 @@ import { Web3ReactProvider } from "@web3-react/core";
 import { store } from "state/store";
 import Layout from "components/Layout";
 import WalletModal from "components/Modals/WalletModal";
-import getLibrary from "utils/getLibrary";
 import dynamic from "next/dynamic";
 import { ThemeProvider } from "@mui/material/styles";
 import AppUpdater from "state/app/updater";
-import WalletUpdater from "state/wallet/updater";
 import ListsUpdater from "state/lists/updater";
 import theme from "theme";
+import { connectors } from "connection";
 
 const Web3ReactProviderDefault = dynamic(
 	() => import("components/Providers/DefaultProvider"),
@@ -27,7 +26,6 @@ declare module "@mui/material/styles" {
 const Updaters = () => (
 	<>
 		<AppUpdater />
-		<WalletUpdater />
 		<ListsUpdater />
 	</>
 );
@@ -35,18 +33,16 @@ const Updaters = () => (
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<Provider store={store}>
-			<Web3ReactProvider getLibrary={getLibrary}>
-				<Web3ReactProviderDefault getLibrary={getLibrary}>
-					<ThemeProvider theme={theme}>
-						<Updaters />
+			<Web3ReactProvider connectors={connectors}>
+				<ThemeProvider theme={theme}>
+					<Updaters />
 
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
+					<Layout>
+						<Component {...pageProps} />
+					</Layout>
 
-						<WalletModal />
-					</ThemeProvider>
-				</Web3ReactProviderDefault>
+					<WalletModal />
+				</ThemeProvider>
 			</Web3ReactProvider>
 		</Provider>
 	);

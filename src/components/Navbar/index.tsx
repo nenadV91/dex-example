@@ -7,9 +7,7 @@ import { styled } from "@mui/system";
 import { useWeb3React } from "@web3-react/core";
 import { chainIdToNames, isSupportedChain } from "utils/supportedChainId";
 
-type NavbarProps = {
-	triedToEagerConnect: boolean;
-};
+type NavbarProps = {};
 
 const StyledToolbar = styled(Toolbar)`
 	justify-content: space-between;
@@ -35,7 +33,7 @@ const NetworkSelector = () => {
 	);
 };
 
-export default function Navbar({ triedToEagerConnect }: NavbarProps) {
+export default function Navbar({}: NavbarProps) {
 	const { chainId } = useWeb3React();
 
 	return (
@@ -46,7 +44,7 @@ export default function Navbar({ triedToEagerConnect }: NavbarProps) {
 
 					<ToolbarRight>
 						<NetworkSelector />
-						{triedToEagerConnect && <Web3Status />}
+						<Web3Status />
 					</ToolbarRight>
 				</StyledToolbar>
 			</AppBar>

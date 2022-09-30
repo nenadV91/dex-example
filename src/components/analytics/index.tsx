@@ -6,7 +6,6 @@ import { isMobile } from "utils/userAgent";
 import { getCLS, getFCP, getFID, getLCP, Metric } from "web-vitals";
 
 import GoogleAnalyticsProvider from "./GoogleAnalyticsProvider";
-import { useWalletInfo } from "hooks/useWalletInfo";
 
 export const GOOGLE_ANALYTICS_CLIENT_ID_STORAGE_KEY = "ga_client_id";
 
@@ -94,7 +93,6 @@ function reportWebVitals({ name, delta, id }: Metric) {
 export function useAnalyticsReporter() {
 	const { asPath } = useRouter();
 	const { chainId } = useWeb3React();
-	const walletName = useWalletInfo();
 
 	useEffect(() => {
 		getFCP(reportWebVitals);
@@ -109,11 +107,6 @@ export function useAnalyticsReporter() {
 		googleAnalytics.set({ dimension1: chainId ?? 0 });
 		googleAnalytics.set({ chainId: chainId ?? 0 });
 	}, [chainId]);
-
-	useEffect(() => {
-		// custom dimension 2 - walletName
-		googleAnalytics.set({ walletName });
-	}, [walletName]);
 
 	useEffect(() => {
 		googleAnalytics.pageview(asPath);

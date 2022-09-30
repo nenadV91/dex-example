@@ -1,4 +1,4 @@
-import { SupportedChainId, CHAIN_ID_TO_NAMES } from "chains";
+import { SupportedChainId, CHAIN_ID_TO_NAMES } from "constants/chains";
 
 export function isSupportedChain(
 	chainId?: number
