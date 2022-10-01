@@ -1,22 +1,13 @@
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import Web3Status from "components/Web3Status";
-import { styled } from "@mui/system";
 import { useWeb3React } from "@web3-react/core";
+import Button from "@mui/material/Button";
+
+import Web3Status from "components/Web3Status";
 import { chainIdToNames, isSupportedChain } from "utils/supportedChainId";
+import * as styled from "./styled";
 
 type NavbarProps = {};
-
-const StyledToolbar = styled(Toolbar)`
-	justify-content: space-between;
-`;
-
-const ToolbarRight = styled("div")`
-	display: flex;
-	align-items: center;
-`;
 
 const NetworkSelector = () => {
 	const { chainId } = useWeb3React();
@@ -34,19 +25,17 @@ const NetworkSelector = () => {
 };
 
 export default function Navbar({}: NavbarProps) {
-	const { chainId } = useWeb3React();
-
 	return (
 		<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static">
-				<StyledToolbar>
+			<AppBar elevation={0} color="transparent" position="static">
+				<styled.StyledToolbar>
 					<div className="left">Web3 app</div>
 
-					<ToolbarRight>
+					<styled.ToolbarRight>
 						<NetworkSelector />
 						<Web3Status />
-					</ToolbarRight>
-				</StyledToolbar>
+					</styled.ToolbarRight>
+				</styled.StyledToolbar>
 			</AppBar>
 		</Box>
 	);

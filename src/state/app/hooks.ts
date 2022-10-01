@@ -6,23 +6,21 @@ import { useWeb3React } from "@web3-react/core";
 
 import { AppState } from "state/store";
 
-export function useSetModalOpen(payload: ApplicationModal | null) {
-  const dispatch = useDispatch();
-  return useCallback(
-    () => dispatch(setOpenModal(payload)),
-    [dispatch, payload]
-  );
+export function useSetModalOpen() {
+	const dispatch = useDispatch();
+	return useCallback(
+		(payload: ApplicationModal | null) => dispatch(setOpenModal(payload)),
+		[dispatch]
+	);
 }
 
 export function useModalOpen(modal: ApplicationModal): boolean {
-  const openModal = useSelector((state: AppState) => state.app.openModal);
-  return openModal === modal;
+	const openModal = useSelector((state: AppState) => state.app.openModal);
+	return openModal === modal;
 }
 
 export function useBlockNumber(): number | undefined {
-  const { chainId } = useWeb3React();
+	const { chainId } = useWeb3React();
 
-  return useSelector(
-    (state: AppState) => state.app.blockNumber[chainId ?? -1]
-  );
+	return useSelector((state: AppState) => state.app.blockNumber[chainId ?? -1]);
 }

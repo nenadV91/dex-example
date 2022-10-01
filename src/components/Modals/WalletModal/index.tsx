@@ -1,45 +1,48 @@
-import Box from "@mui/material/Box";
+import { useEffect } from "react";
+import { useWeb3React } from "@web3-react/core";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+
 import { useModalOpen } from "state/app/hooks";
 import { ApplicationModal } from "state/app/types";
 import { useSetModalOpen } from "state/app/hooks";
-import { styled } from "@mui/system";
+import { MetaMaskOption } from "./Options/InjectedOption";
+import { useTryActivation } from "state/connection/hooks";
+import usePrevious from "hooks/usePrevious";
 
-const ModalContent = styled(Box)`
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	min-width: 400px;
-	background-color: ${({ theme }) => theme.palette.background.paper};
-	padding: ${({ theme }) => theme.spacing(2)};
-`;
-
-const SpinnerWrapper = styled(Box)`
-	display: flex;
-	justify-content: center;
-	padding: 25px;
-`;
-
-const ErrorText = styled(Typography)`
-	color: ${({ theme }) => theme.palette.error.main};
-`;
+import * as styled from "./styled";
 
 export default function WalletModal() {
-	const isModalOpen = useModalOpen(ApplicationModal.WALLET);
+	const { account } = useWeb3React();
+	const prevAccount = usePrevious(account);
 
-	const closeModal = useSetModalOpen(null);
+	const isModalOpen = useModalOpen(ApplicationModal.WALLET);
+	const closeModal = useSetModalOpen();
+	const tryActivation = useTryActivation();
+
+	useEffect(() => {
+		if (isModalOpen && account !== prevAccount) {
+			closeModal(null);
+		}
+	}, [account, closeModal, isModalOpen, prevAccount]);
 
 	return (
 		<div>
 			<Modal
 				open={isModalOpen}
-				onClose={() => closeModal()}
+				onClose={() => closeModal(null)}
 				aria-labelledby="modal-modal-title"
 				aria-describedby="modal-modal-description"
 			>
-				<ModalContent></ModalContent>
+				<styled.ModalContent>
+					<styled.TitleSection>
+						<Typography>Select a wallet</Typography>
+					</styled.TitleSection>
+
+					<styled.BodySection>
+						<MetaMaskOption tryActivation={tryActivation} />
+					</styled.BodySection>
+				</styled.ModalContent>
 			</Modal>
 		</div>
 	);
