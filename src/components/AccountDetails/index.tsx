@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useWeb3React } from "@web3-react/core";
 
 import { getConnection, getConnectionName } from "connection/utils";
@@ -16,16 +16,24 @@ import * as styled from "./styled";
 
 export function AccountDetails() {
 	const { connector, account, chainId } = useWeb3React();
-	const connectionType = getConnection(connector).type;
-	const connectionName = getConnectionName(connectionType);
+
 	const dispatch = useAppDispatch();
 
 	const [isCopied, setCopied] = useCopyClipboard();
 
+	// get connection name
+	const connectionName = useMemo(() => {
+		const type = getConnection(connector).type;
+		const name = getConnectionName(type);
+		return name;
+	}, [connector]);
+
+	// handle copy
 	const copy = useCallback(() => {
 		setCopied(account || "");
 	}, [account, setCopied]);
 
+	// handle view on explorer
 	const viewOnExplorer = useCallback(() => {
 		if (!chainId || !account) {
 			return;
@@ -34,6 +42,7 @@ export function AccountDetails() {
 		window.open(getExplorerLink(chainId, account, ExplorerDataType.ADDRESS));
 	}, [account, chainId]);
 
+	// handle disconnect
 	const disconnect = useCallback(() => {
 		if (connector.deactivate) {
 			connector.deactivate();

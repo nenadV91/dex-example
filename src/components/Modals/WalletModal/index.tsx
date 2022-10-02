@@ -8,6 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 
 import { MetaMaskOption } from "./InjectedOption";
+import { WalletConnectOption } from "./WalletConnectOption";
 import { useTryActivation } from "state/connection/hooks";
 
 import * as styled from "../styled";
@@ -30,6 +31,7 @@ export default function WalletModal() {
 
 					<styled.BodySection>
 						<MetaMaskOption tryActivation={tryActivation} />
+						<WalletConnectOption tryActivation={tryActivation} />
 					</styled.BodySection>
 				</styled.ModalContent>
 			</Modal>

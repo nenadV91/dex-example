@@ -31,7 +31,9 @@ export default function AccountModal() {
 
 					<AccountDetails />
 
-					<styled.BodySection>Content</styled.BodySection>
+					<styled.BodySection>
+						<span>Transactions</span>
+					</styled.BodySection>
 				</styled.ModalContent>
 			</Modal>
 		</div>

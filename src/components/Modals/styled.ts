@@ -31,4 +31,6 @@ export const TitleSection = styled("div")`
 
 export const BodySection = styled("div")`
 	padding: ${({ theme }) => theme.spacing(2)};
+	display: flex;
+	flex-direction: column;
 `;

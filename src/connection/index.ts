@@ -29,7 +29,7 @@ export const [walletConnect, walletConnectHooks] =
 export const walletConnectConnection: Connection = {
 	connector: walletConnect,
 	hooks: walletConnectHooks,
-	type: ConnectionType.INJECTED,
+	type: ConnectionType.WALLET_CONNECT,
 };
 
 // Injected
