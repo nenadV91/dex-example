@@ -1,9 +1,10 @@
 export enum ApplicationModal {
-  WALLET,
+	WALLET,
+	ACCOUNT,
 }
 
 export interface ApplicationState {
-  openModal: ApplicationModal | null;
-  chainId: number | null;
-  blockNumber: { readonly [chainId: number]: number };
+	openModal: ApplicationModal | null;
+	chainId: number | null;
+	blockNumber: { readonly [chainId: number]: number };
 }

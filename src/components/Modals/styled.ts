@@ -1,6 +1,7 @@
 import { styled } from "@mui/system";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
 export const ModalContent = styled(Box)`
 	position: absolute;
@@ -23,7 +24,9 @@ export const ErrorText = styled(Typography)`
 
 export const TitleSection = styled("div")`
 	padding: ${({ theme }) => theme.spacing(2)};
-	border-bottom: 1px solid ${({ theme }) => theme.palette.divider};
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 `;
 
 export const BodySection = styled("div")`

@@ -4,6 +4,7 @@ import { UaEventOptions } from "react-ga4/types/ga4";
 import { useRouter } from "next/router";
 import { isMobile } from "utils/userAgent";
 import { getCLS, getFCP, getFID, getLCP, Metric } from "web-vitals";
+import { isServer } from "utils/env";
 
 import GoogleAnalyticsProvider from "./GoogleAnalyticsProvider";
 
@@ -40,7 +41,7 @@ export function sendTiming(
 	);
 }
 
-if (typeof window !== "undefined") {
+if (!isServer()) {
 	const GOOGLE_ANALYTICS_ID: string | undefined =
 		process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
 
@@ -115,7 +116,7 @@ export function useAnalyticsReporter() {
 	useEffect(() => {
 		// typed as 'any' in react-ga4 -.-
 		googleAnalytics.ga((tracker: any) => {
-			if (!tracker) return;
+			if (!tracker || isServer()) return;
 
 			const clientId = tracker.get("clientId");
 			window.localStorage.setItem(

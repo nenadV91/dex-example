@@ -19,9 +19,15 @@ export default function Web3Status() {
 	};
 
 	const handleClick = () => {
+		let walletType = null;
+
 		if (!account) {
-			openModal(ApplicationModal.WALLET);
+			walletType = ApplicationModal.WALLET;
+		} else {
+			walletType = ApplicationModal.ACCOUNT;
 		}
+
+		openModal(walletType);
 	};
 
 	return (

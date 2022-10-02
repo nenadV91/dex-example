@@ -1,7 +1,8 @@
 import { UAParser } from "ua-parser-js";
+import { isServer } from "./env";
 
 const parser = new UAParser(
-	typeof window !== "undefined" ? window.navigator.userAgent : undefined
+	!isServer() ? window.navigator.userAgent : undefined
 );
 const { type } = parser.getDevice();
 
