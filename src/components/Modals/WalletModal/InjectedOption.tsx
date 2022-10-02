@@ -1,11 +1,8 @@
 import { Connector } from "@web3-react/types";
-import { injectedConnection } from "connection";
-import Button from "@mui/material/Button";
 
-const METAMASK_PROPS = {
-	color: "#E8831D",
-	id: "metamask",
-};
+import METAMASK_ICON_URL from "assets/images/metamaskIcon.png";
+import { injectedConnection } from "connection";
+import { Option } from "./Option";
 
 export function MetaMaskOption({
 	tryActivation,
@@ -14,8 +11,12 @@ export function MetaMaskOption({
 }) {
 	const isActive = injectedConnection.hooks.useIsActive();
 	return (
-		<Button onClick={() => tryActivation(injectedConnection.connector)}>
+		<Option
+			isActive={isActive}
+			icon={METAMASK_ICON_URL}
+			onClick={() => tryActivation(injectedConnection.connector)}
+		>
 			Metamask
-		</Button>
+		</Option>
 	);
 }

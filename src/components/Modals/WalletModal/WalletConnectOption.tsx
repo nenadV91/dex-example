@@ -1,11 +1,8 @@
 import { Connector } from "@web3-react/types";
-import { walletConnectConnection } from "connection";
-import Button from "@mui/material/Button";
 
-const BASE_PROPS = {
-	color: "#4196FC",
-	id: "wallet-connect",
-};
+import WALLET_CONNECT_ICON_URL from "assets/images/walletConnectIcon.svg";
+import { walletConnectConnection } from "connection";
+import { Option } from "./Option";
 
 export function WalletConnectOption({
 	tryActivation,
@@ -13,9 +10,14 @@ export function WalletConnectOption({
 	tryActivation: (connector: Connector) => void;
 }) {
 	const isActive = walletConnectConnection.hooks.useIsActive();
+
 	return (
-		<Button onClick={() => tryActivation(walletConnectConnection.connector)}>
+		<Option
+			isActive={isActive}
+			icon={WALLET_CONNECT_ICON_URL}
+			onClick={() => tryActivation(walletConnectConnection.connector)}
+		>
 			Wallet Connect
-		</Button>
+		</Option>
 	);
 }
